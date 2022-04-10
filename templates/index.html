@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="static/style.css">
+  <title>MNIST-Hand-Written-Digits-Recognition</title>
+</head>
+
+<body>
+  <nav class="navbar navbar-dark bg-primary">
+
+    <h2 class="navbar-text">Hand-Written Digit Recognition App</h2>
+  </nav>
+
+  <br>
+  <br>
+
+  <div class="row">
+    <div class="col-md-6">
+
+      <div align="center">
+        <div class="container">
+          <div align='center'>
+            <canvas id="canvas"></canvas>
+          </div>
+          <button onclick="saveImg()" type="button" class="btn btn-success">Predict Digit</button>
+          <button id="clear-canvas" type="button" class="btn btn-danger">Clear Canvas</button>
+        </div>
+        <div align="center">
+          <b> <i>
+              <h1 id="res"></h1>
+            </i></b>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="bottom">
+    <nav class="navbar navbar-light" style="background-color: #9c92f5;">
+    </nav>
+  </div>
+
+
+  <script>
+
+    // Function to save the image of on the Canvas
+    function saveImg() {
+      var canvas = document.getElementById("canvas");
+      // draw to canvas...
+      canvas.toBlob(function (blob) {
+        // saveAs(blob, "img1.png");
+        console.log(blob)
+
+        fetch(`/canvas`,
+          { method: "POST", body: blob }
+        ).then(response => response.json())
+          .then(data => {
+            console.log(data);
+            var res = document.getElementById('res')
+            res.innerText = data.message
+          }).catch(err => {
+            console.log(err)
+          })
+
+
+      });
+    }
+  </script>
+
+  <script src="static/script.js"></script>
+  <script src="static/fileSaver.js"></script>
+  <script src="static/jquery.js"></script>
+
+</body>
+
+</html>

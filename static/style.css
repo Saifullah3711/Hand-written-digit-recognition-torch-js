@@ -1,0 +1,24 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#canvas{
+    border: 2px solid black;
+}
+
+#bottom-stuff {
+
+    position: relative;
+}
+
+#bottom{
+
+    position: fixed; 
+    background:gray; 
+    width:100%;
+    bottom:0;
+}
+
+#search{height:5000px; overflow-y:scroll;}
